@@ -7322,6 +7322,33 @@ int LIBMTP_Track_Exists(LIBMTP_mtpdevice_t *device,
 }
 
 /**
+ * This asks the device itself whether an object exists, bypassing the
+ * object cache (unlike LIBMTP_Track_Exists(), which answers from the
+ * cache and so cannot confirm that a send or delete really happened).
+ * @param device a pointer to the device to query.
+ * @param id the object ID to look for.
+ * @return 1 if the object exists, 0 if the device reports an invalid
+ *         handle, -1 on any other error.
+ */
+int LIBMTP_Object_Exists_On_Device(LIBMTP_mtpdevice_t *device,
+           uint32_t const id)
+{
+  PTPParams *params = (PTPParams *) device->params;
+  PTPObjectInfo oi;
+  uint16_t ret;
+
+  memset(&oi, 0, sizeof(oi));
+  ret = ptp_getobjectinfo(params, id, &oi);
+  ptp_free_objectinfo(&oi);
+  if (ret == PTP_RC_OK)
+    return 1;
+  if (ret == PTP_RC_InvalidObjectHandle)
+    return 0;
+  add_ptp_error_to_errorstack(device, ret, "LIBMTP_Object_Exists_On_Device(): could not query object.");
+  return -1;
+}
+
+/**
  * This creates a new folder structure and allocates memory
  * for it. Notice that if you add strings to this structure they
  * will be freed by the corresponding <code>LIBMTP_folder_track_t</code>

@@ -78,6 +78,7 @@ LIBMTP_Send_Track_From_File_Descriptor
 LIBMTP_Send_Track_From_Handler
 LIBMTP_Update_Track_Metadata
 LIBMTP_Track_Exists
+LIBMTP_Object_Exists_On_Device
 LIBMTP_new_folder_t
 LIBMTP_destroy_folder_t
 LIBMTP_Get_Folder_List

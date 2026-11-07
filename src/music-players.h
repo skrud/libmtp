@@ -454,7 +454,9 @@
   { "Microsoft", 0x045e, "Kin 1", 0x0640, DEVICE_FLAG_NONE },
   { "Microsoft/Sharp/nVidia", 0x045e, "Kin TwoM", 0x0641, DEVICE_FLAG_NONE },
   // Reported by Farooq Zaman (used for all Zunes)
-  { "Microsoft", 0x045e, "Zune", 0x0710, DEVICE_FLAG_NONE },
+  // GetObjPropList for all objects stalls the device after the MTPZ handshake
+  { "Microsoft", 0x045e, "Zune", 0x0710,
+      DEVICE_FLAG_BROKEN_MTPGETOBJPROPLIST_ALL },
   /* https://sourceforge.net/p/libmtp/feature-requests/155/ */
   { "Microsoft", 0x045e, "Lumia 950 XL Dual SIM (RM-1116)", 0x0a00, DEVICE_FLAG_NONE },
   // Reported by Olegs Jeremejevs
