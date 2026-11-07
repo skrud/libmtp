@@ -839,6 +839,8 @@ int LIBMTP_Get_Supported_Devices_List(LIBMTP_device_entry_t ** const, int * cons
 LIBMTP_error_number_t LIBMTP_Detect_Raw_Devices(LIBMTP_raw_device_t **, int *);
 int LIBMTP_Check_Specific_Device(int busno, int devno);
 LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device(LIBMTP_raw_device_t *);
+LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device_With_Progress(LIBMTP_raw_device_t *,
+                                                         LIBMTP_progressfunc_t const, void const * const);
 LIBMTP_mtpdevice_t *LIBMTP_Open_Raw_Device_Uncached(LIBMTP_raw_device_t *);
 /* Begin old, legacy interface */
 LIBMTP_mtpdevice_t *LIBMTP_Get_Device(int);
