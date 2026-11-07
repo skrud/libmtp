@@ -1426,7 +1426,17 @@ ptp_usb_getdata (PTPParams* params, PTPContainer* ptp, PTPDataHandler *handler)
 			break;
 		}
 		if (dtoh16(usbdata.type)!=PTP_USB_CONTAINER_DATA) {
-			ret = PTP_ERROR_DATA_EXPECTED;
+			/*
+			 * The device skipped the data phase and answered straight away
+			 * (e.g. the Zune answers GetObjectInfo on a missing object with
+			 * InvalidObjectHandle). That response is consumed here, so pass
+			 * its code on instead of losing it.
+			 */
+			if (dtoh16(usbdata.type)==PTP_USB_CONTAINER_RESPONSE &&
+			    dtoh16(usbdata.code)!=PTP_RC_OK)
+				ret = dtoh16(usbdata.code);
+			else
+				ret = PTP_ERROR_DATA_EXPECTED;
 			break;
 		}
 		if (dtoh16(usbdata.code)!=ptp->Code) {
